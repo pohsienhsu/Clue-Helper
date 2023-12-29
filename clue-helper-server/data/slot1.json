@@ -1,0 +1,29 @@
+{
+    "characters": [
+        "Cindy-Lou Who",
+        "Mama Who",
+        "Papa Who",
+        "Cousin Who",
+        "Auntie Who",
+        "Who-ville Mayor"
+    ],
+    "items": [
+        "Roast Beast",
+        "Stocking",
+        "Drum",
+        "Christmas Tree",
+        "Who-hash",
+        "Christmas Wreath"
+    ],
+    "locations": [
+        "Mt. Crumpit",
+        "Family Room",
+        "Kitchen",
+        "Grinch's Lair",
+        "Max's Bed",
+        "Bedroom",
+        "Town Square",
+        "Living Room",
+        "Banquet Hall"
+    ]
+}
