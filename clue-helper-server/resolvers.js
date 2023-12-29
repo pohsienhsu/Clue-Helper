@@ -106,18 +106,33 @@ const editPlayer = async (_, args, { db }) => {
 Turns
 **************************************************************** */
 
-const recordQuestion = async (_, args, { db }) => {
-  const { gameId, playerId, qCharacter, qItem, qLocation, shown, shownByPlayerId } = args.input;
+const createQuestion = async (_, args, { db }) => {
+  const {
+    gameId,
+    playerId,
+    qCharacterId,
+    qItemId,
+    qLocationId,
+    shown,
+    shownByPlayerId,
+  } = args.input;
   const query = `
-    INSERT INTO Questions (game_id, player_id, qCharacter, qItem, qLocation, shown, shownByPlayerId)
+    INSERT INTO Questions (game_id, player_id, qCharacter_id, qItem_id, qLocation_id, shown, shownByPlayerId)
     VALUES ($1, $2, $3, $4, $5, $6, $7)
     RETURNING *;
   `;
-  return await db.one(query, [gameId, playerId, qCharacter, qItem, qLocation, shown, shownByPlayerId]);
+  return await db.one(query, [
+    gameId,
+    playerId,
+    qCharacterId,
+    qItemId,
+    qLocationId,
+    shown,
+    shownByPlayerId,
+  ]);
 };
 
-
-const recordTurn = async (_, args, { db }) => {
+const createTurn = async (_, args, { db }) => {
   const { gameId, playerId, questionId } = args.input;
   const query = `
     INSERT INTO Turns (game_id, player_id, question_id)
@@ -127,19 +142,18 @@ const recordTurn = async (_, args, { db }) => {
   return await db.one(query, [gameId, playerId, questionId]);
 };
 
-
 module.exports = {
   Query: {
     getRecentIncompleteGames,
     getAllThemes,
-    getAllPlayersForTheGame
+    getAllPlayersForTheGame,
   },
   Mutation: {
     createGame,
     deleteIncompleteGame,
     createPlayer,
     editPlayer,
-    recordQuestion,
-    recordTurn
+    createQuestion,
+    createTurn,
   },
 };

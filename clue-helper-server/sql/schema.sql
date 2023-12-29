@@ -45,9 +45,9 @@ CREATE TABLE Questions (
   id SERIAL PRIMARY KEY,
   game_id INT REFERENCES Games(id),
   player_id INT REFERENCES Players(id),
-  q_character INT REFERENCES Characters(id),
-  q_item INT REFERENCES Items(id),
-  q_location INT REFERENCES Locations(id),
+  q_character_id INT REFERENCES Characters(id),
+  q_item_id INT REFERENCES Items(id),
+  q_location_id INT REFERENCES Locations(id),
   shown_card BOOLEAN NOT NULL,
   shown_by_player_id INT REFERENCES Players(id),
   question_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP

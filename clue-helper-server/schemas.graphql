@@ -1,0 +1,95 @@
+type Game {
+  id: Int!
+  themeId: Int!
+  status: String!
+  start_date: Date!
+}
+
+type Theme {
+  id: Int!
+  name: String!
+}
+
+type Character {
+  id: Int!
+  name: String!
+  themeId: Int!
+}
+
+type Item {
+  id: Int!
+  name: String!
+  themeId: Int!
+}
+
+type Location {
+  id: Int!
+  name: String!
+  themeId: Int!
+}
+
+type Player {
+  id: Int!
+  gameId: Int!
+  name: String!
+}
+
+type Question {
+  id: Int!
+  gameId: Int!
+  playerId: Int!
+  qCharacterId: Int!
+  qItemId: Int!
+  qLocationId: Int!
+  shown: Boolean!
+  shownByPlayerId: Int!
+  questionDate: Date!
+}
+
+type Turn {
+  id: Int!
+  gameId: Int!
+  playerId: Int!
+  questionId: Int!
+  turnDate: Date!
+}
+
+type Query {
+  getRecentIncompleteGames(limit: Int!): [Game!]!
+  getAllThemes: [Theme!]!
+  getAllPlayersForTheGame(gameId: Int!): [Player!]!
+}
+
+input CreateGameInput {
+  themeId: Int!
+}
+
+input CreatePlayerInput {
+  gameId: Int!
+  name: String!
+}
+
+input CreateQuestionInput {
+  gameId: Int!
+  playerId: Int!
+  qCharacterId: Int!
+  qItemId: Int!
+  qLocationId: Int!
+  shown: Boolean!
+  shownByPlayerId: Int
+}
+
+input CreateTurnInput {
+  gameId: Int!
+  playerId: Int!
+  questionId: Int!
+}
+
+type Mutation {
+  createGame(input: CreateGameInput!): Game!
+  deleteIncompleteGame(gameId: Int!): Game!
+  createPlayer(input: CreatePlayerInput!): Player!
+  editPlayer(id: Int!, input: CreatePlayerInput!): Player!
+  createQuestion(input: CreateQuestionInput!): Question!
+  createTurn(input: CreateTurnInput!): Turn!
+}
