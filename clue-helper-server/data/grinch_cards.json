@@ -1,5 +1,5 @@
 {
-    "characters": [
+    "character": [
         "Cindy-Lou Who",
         "Mama Who",
         "Papa Who",
@@ -7,7 +7,7 @@
         "Auntie Who",
         "Who-ville Mayor"
     ],
-    "items": [
+    "item": [
         "Roast Beast",
         "Stocking",
         "Drum",
@@ -15,7 +15,7 @@
         "Who-hash",
         "Christmas Wreath"
     ],
-    "locations": [
+    "location": [
         "Mt. Crumpit",
         "Family Room",
         "Kitchen",

@@ -1,0 +1,128 @@
+type Game {
+  id: Int!
+  theme_id: Int!
+  status: String!
+  start_date: String!
+}
+
+type Theme {
+  id: Int!
+  name: String!
+}
+
+type Card {
+  id: Int!
+  name: String!
+  theme_id: Int!
+  type: String!
+}
+
+type Player {
+  id: Int!
+  game_id: Int!
+  name: String!
+  order: Int!
+  role: String!
+}
+
+type Question {
+  id: Int!
+  game_id: Int!
+  player_id: Int!
+  q_character_id: Int!
+  q_item_id: Int!
+  q_location_id: Int!
+  shown_card: Boolean!
+  shown_by_player_id: Int!
+  question_date: String!
+}
+
+type Turn {
+  id: Int!
+  game_id: Int!
+  player_id: Int!
+  question_id: Int!
+  turn_date: String!
+}
+
+type PlayerCard {
+  id: Int!
+  game_id: Int!
+  player_id: Int!
+  card_id: Int!
+}
+
+type RuledOutCard {
+  id: Int!
+  game_id: Int!
+  player_id: Int!
+  card_id: Int!
+  source_question_id: Int!
+}
+
+type Query {
+  getRecentIncompleteGames(limit: Int!): [Game!]!
+  getAllThemes: [Theme!]!
+  getAllPlayersForTheGame(game_id: Int!): [Player!]!
+  getAllCards(theme_id: Int!): [Card!]!
+  getPlayerCards(game_id: Int!, player_id: Int!): [PlayerCard!]!
+  getRuledOutCards(game_id: Int!, player_id: Int!): [RuledOutCard!]!
+}
+
+input CreateGameInput {
+  theme_id: Int!
+}
+
+input CreatePlayerInput {
+  game_id: Int!
+  name: String!
+  sequence: Int!
+  role: String!
+}
+
+input CreateQuestionInput {
+  game_id: Int!
+  player_id: Int!
+  q_character_id: Int!
+  q_item_id: Int!
+  q_location_id: Int!
+  shown_card: Boolean!
+  shown_by_player_id: Int
+}
+
+input CreateTurnInput {
+  game_id: Int!
+  player_id: Int!
+  question_id: Int!
+}
+
+input CreateCardInput {
+  name: String!
+  theme_id: Int!
+  type: String!
+}
+
+input CreatePlayerCardInput {
+  game_id: Int!
+  player_id: Int!
+  card_id: Int!
+}
+
+input CreateRuledOutCardInput {
+  game_id: Int!
+  player_id: Int!
+  card_id: Int!
+  source_question_id: Int!
+}
+
+type Mutation {
+  createGame(input: CreateGameInput!): Game!
+  deleteIncompleteGame(game_id: Int!): Game!
+  createPlayer(input: CreatePlayerInput!): Player!
+  editPlayer(id: Int!, input: CreatePlayerInput!): Player!
+  createQuestion(input: CreateQuestionInput!): Question!
+  createTurn(input: CreateTurnInput!): Turn!
+  createCard(input: CreateCardInput!): Card!
+  createPlayerCard(input: CreatePlayerCardInput!): PlayerCard!
+  createRuledOutCard(input: CreateRuledOutCardInput!): RuledOutCard! 
+}

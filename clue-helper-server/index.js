@@ -1,31 +1,33 @@
-const express = require('express');
-const { graphqlHTTP } = require('express-graphql');
-const { GraphQLSchema, GraphQLObjectType, GraphQLString } = require('graphql');
+const express = require("express");
+const cors = require("cors");
+const { graphqlHTTP } = require("express-graphql");
+const { makeExecutableSchema } = require("@graphql-tools/schema");
+const { importSchema } = require("graphql-import");
+const resolvers = require("./resolvers");
+
+
+// Import GraphQL schema
+const typeDefs = importSchema('./schema.graphql');
+
+// Create executable GraphQL schema
+const schema = makeExecutableSchema({
+  typeDefs,
+  resolvers,
+});
 
 // Initialize Express App
 const app = express();
 
-// Define a GraphQL schema
-const schema = new GraphQLSchema({
-  query: new GraphQLObjectType({
-    name: 'HelloWorld',
-    fields: () => ({
-      message: {
-        type: GraphQLString,
-        resolve: () => 'Hello, World!',
-      },
-    }),
-  }),
-});
+app.use(cors());
 
-// GraphQL Endpoint
-app.use(
-  '/graphql',
-  graphqlHTTP({
-    schema: schema,
-    graphiql: true, // Enable GraphiQL for testing the GraphQL API
-  })
-);
+// GraphQL endpoint
+app.use('/graphql', graphqlHTTP({
+  schema,
+  graphiql: true, // Enable GraphiQL interface for testing
+  context: {
+    db: require('./db'), // Initialize and export your database connection here (e.g., using pg-promise)
+  },
+}));
 
 // Start the server
 const PORT = process.env.SERVER_PORT || 8080;
